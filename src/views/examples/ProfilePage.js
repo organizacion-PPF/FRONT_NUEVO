@@ -27,7 +27,7 @@ import {
 } from "reactstrap";
 
 // core components
-import ExamplesNavbar from "components/layout/ExamplesNavbar";
+import ProfNavbar from "components/layout/ProfNavbar";
 import Footer from "components/Footer/Footer.js";
 
 
@@ -57,7 +57,7 @@ export default function ProfilePage() {
   },[]);
   return (
     <>
-      <ExamplesNavbar />
+      <ProfNavbar />
       <div className="wrapper">
         <div className="page-header">
           <img

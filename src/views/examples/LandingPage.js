@@ -218,7 +218,7 @@ export default function LandingPage() {
                     </h1>
                  
                     <br />
-                    <Link to="/lista-prof"><Button color="success" size="lg" >BUSCA UN PROFESOR</Button></Link>
+                    <Link to="/materias-page"><Button color="success" size="lg" >BUSCA UN PROFESOR</Button></Link>
                   </div>
                 </Col>
               </Row>
