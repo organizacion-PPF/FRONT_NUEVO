@@ -23,7 +23,7 @@ import {
 // core components
 import Footer from "components/Footer/Footer.js";
 import { defaults } from "chart.js";
-import FormNavbar from "components/Navbars/FormNavbar";
+import FormNavbar from "components/layout/FormNavbar";
 
 export default function RegisterPage() {
   const history = useHistory();

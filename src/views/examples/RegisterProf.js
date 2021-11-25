@@ -27,7 +27,7 @@ import {
 
 // core components
 import Footer from "components/Footer/Footer.js";
-import FromNavbar from "components/Navbars/FormNavbar";
+import FromNavbar from "components/layout/FormNavbar";
 
 
 let token=window.localStorage.getItem('LoginPage')
@@ -107,7 +107,7 @@ const options = {
 }
 
 console.log(token)
-const postData = await fetch("http://localhost:4000/profesor", options, )
+const postData = await fetch("https://proyec-back.herokuapp.com/profesor", options, )
 const res = await postData.json()
 console.log(res)
 setResgistrado(true)

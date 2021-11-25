@@ -1,4 +1,6 @@
 import React from "react";
+import { useParams } from 'react-router';
+import  { useEffect,useState } from 'react'
 import 'animate.css';
 // react plugin used to create charts
 import { Line } from "react-chartjs-2";
@@ -21,8 +23,9 @@ import {
 } from "reactstrap";
 
 // core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+import ExamplesNavbar from "components/layout/ExamplesNavbar";
 import Footer from "components/Footer/Footer.js";
+
 
 import bigChartData from "variables/charts.js";
 
@@ -52,6 +55,36 @@ export default function LandingPage() {
       document.body.classList.toggle("landing-page");
     };
   },[]);
+
+  //conectar materias con la BD
+
+  const {proid} = useParams();
+	//console.log(proid)
+
+	const [stateProfesionales, setStateProfesionales] = useState(null)
+	const url = "https://ipf-profesionales.herokuapp.com/api/profesionales/"+proid;
+
+  const fetchDataProfesionales = async () => {
+      try {
+          const peticion = await fetch(url)
+          const res = await peticion.json()
+         // console.log(res)
+          setStateProfesionales(res)
+      } catch (error) {console.log(error)}
+  }
+
+  useEffect(() => {
+      fetchDataProfesionales()
+  },[proid])
+	
+	if(!stateProfesionales){
+		return null;
+	}
+
+
+
+
+
   return (
     <>
       <ExamplesNavbar />

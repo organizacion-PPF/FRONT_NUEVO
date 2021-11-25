@@ -16,8 +16,8 @@ import {
 } from "reactstrap";
 
 // core components
-import PageHeader from "components/PageHeader/PageHeader";
-import HomeNavbar from "components/Navbars/HomeNavbar.js";
+
+import HomeNavbar from "components/layout/HomeNavbar";
 import Footer from "components/Footer/Footer.js";
 
 import bigChartData from "variables/charts.js";

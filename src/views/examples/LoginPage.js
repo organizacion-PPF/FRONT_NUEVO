@@ -24,7 +24,7 @@ import {
 
 // core components
 import Footer from "components/Footer/Footer.js";
-import FromNavbar from "components/Navbars/FormNavbar";
+import FromNavbar from "components/layout/FormNavbar";
 import setToken from "./RegisterProf"
 
 
