@@ -273,7 +273,7 @@ export default function ProfilePage() {
                         <Col md="6">
                           <FormGroup>
                             <label>Tu nombre</label>
-                            <Input defaultValue="jorge" type="text" />
+                            <Input placeholder="jorge" type="text" />
                           </FormGroup>
                         </Col>
                         <Col md="6">
@@ -287,7 +287,7 @@ export default function ProfilePage() {
                         <Col md="6">
                           <FormGroup>
                             <label>Celular</label>
-                            <Input defaultValue="3704-235678" type="text" />
+                            <Input placeholder="3704-235678" type="text" />
                           </FormGroup>
                         </Col>
                       </Row>
