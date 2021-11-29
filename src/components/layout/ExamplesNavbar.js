@@ -55,7 +55,7 @@ export default function ExamplesNavbar() {
     <Navbar className={"fixed-top " + color} color-on-scroll="100" expand="lg">
       <Container>
         <div className="navbar-translate">
-          <NavbarBrand to="/home-page" id="navbar-brand" tag={Link}>
+          <NavbarBrand to="/landing-page" id="navbar-brand" tag={Link}>
             <span>INICIO </span>
           </NavbarBrand>
           <button

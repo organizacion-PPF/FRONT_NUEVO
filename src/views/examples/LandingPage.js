@@ -57,28 +57,7 @@ export default function LandingPage(props) {
     };
   },[]);
 
- /*  const url = "https://proyec-back.herokuapp.com/profesor/get";
 
-const [stateUsuario, setStateUsuario] = useState([])
-
-const fetchDataUsuario= async () => {
-    try {
-        const peticion = await fetch(url)
-        const res = await peticion.json()
-        console.log(res)
-        setStateUsuario(res)
-    } catch (error) {console.log(error)}
-}
-
-useEffect(() => {
-  fetchDataUsuario()
-},[])
-
-if ( !stateUsuario) {
-
-  return(null)
-  
-} */
 
 
 
