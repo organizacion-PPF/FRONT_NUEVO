@@ -29,6 +29,16 @@ import {
 import Footer from "components/Footer/Footer.js";
 import FromNavbar from "components/layout/FormNavbar";
 
+import * as yup from "yup";
+
+let profSchema = yup.object().shape({
+  descripcion: yup.string().required(),
+  nivel : yup.string().required(),
+  materia: yup.string().required(),
+  horarios: yup.date().required(),
+  honorarios: yup.number().required(),
+
+})
 
 let token=window.localStorage.getItem('LoginPage')
   
@@ -47,6 +57,7 @@ export default  function RegisterProf()  {
   const [honorarios, setHonorarios] = useState('');
   const [resgistrado, setResgistrado] = useState(null);
   const [squares7and8, setSquares7and8] = React.useState("");
+  const [habilitado, setHabilitado] = useState(false);
   React.useEffect(() => {
     
     document.body.classList.toggle("resgiter-page");
@@ -57,6 +68,23 @@ export default  function RegisterProf()  {
       document.documentElement.removeEventListener("mousemove", followCursor);
     };
   },[]);
+
+
+  useEffect(()=> {
+    profSchema.isValid({descripcion, nivel, materia, horarios, honorarios})
+    .then(
+      (valid) => {
+        if(valid){
+          setHabilitado(true)
+        }else{
+          setHabilitado(false)
+        }
+      }
+    )
+  },[descripcion, nivel, materia, horarios, honorarios, profSchema]);
+
+
+
   const history = useHistory()
   const followCursor = (event) => {
     let posX = event.clientX - window.innerWidth / 2;
@@ -111,9 +139,6 @@ const postData = await fetch("https://proyec-back.herokuapp.com/profesor", optio
 const res = await postData.json()
 console.log(res)
 setResgistrado(true)
-
-
-
 
   }
 
@@ -236,9 +261,10 @@ setResgistrado(true)
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      <Button className="btn-round" color="primary" size="lg" 
-                      onClick={(e)=>{resgistroNuevoProf(e.preventDefault())}}>
-                        Aceptar
+                    <Button className="btn-round" color="primary" size="lg" 
+                     disabled={habilitado ? false : true}
+                     onClick={resgistroNuevoProf}>
+                     {habilitado ? "Aceptar" : "Aceptar"}
                       </Button>
                       
                     </CardFooter>

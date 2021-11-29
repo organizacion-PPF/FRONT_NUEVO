@@ -26,6 +26,15 @@ import {
 import Footer from "components/Footer/Footer.js";
 import FromNavbar from "components/layout/FormNavbar";
 import setToken from "./RegisterProf"
+import * as yup from 'yup';
+
+let schemaDatosLogin = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().required().min(8,"Como minimo, 8 caracteres")
+})
+
+
+
 
 
 export default function LoginPage() {
@@ -35,6 +44,7 @@ export default function LoginPage() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [logeado, setLogeado] = useState(null);
+  const [habilitado, setHabilitado] = useState(false);
 
 
   React.useEffect(() => {
@@ -47,7 +57,19 @@ export default function LoginPage() {
     };
   },[]);
 
- 
+  useEffect(()=> {
+    schemaDatosLogin.isValid({email, password})
+    .then(
+      (valid) => {
+        if(valid){
+          setHabilitado(true)
+        }else{
+          setHabilitado(false)
+        }
+      }
+    )
+  },[email, password, schemaDatosLogin]);
+
 
   const followCursor = (event) => {
     let posX = event.clientX - window.innerWidth / 2;
@@ -171,9 +193,10 @@ window.localStorage.setItem(
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      <Button className="btn-round" color="primary" size="lg" 
-                       onClick={(e)=>{LoginUsu(e.preventDefault())}}>
-                        Aceptar
+                    <Button className="btn-round" color="primary" size="lg" 
+                        disabled={habilitado ? false : true}
+                        onClick={LoginUsu}>
+                        {habilitado ? "Aceptar" : "Aceptar"}
                       </Button>
                     </CardFooter>
                   </Card>

@@ -24,6 +24,15 @@ import {
 import Footer from "components/Footer/Footer.js";
 import { defaults } from "chart.js";
 import FormNavbar from "components/layout/FormNavbar";
+import * as yup from 'yup';
+let UserSchema = yup.object().shape({
+
+  nombre_completo: yup.string().required("Campo requerido"),
+  email: yup.string().email("Correo electronico invalido").required("Campo requerido"),
+  password: yup.string().min(8,'La contraseña debe contener al menos 8 caracteres').required("Campo requerido"),
+  provincia: yup.string().required("Campo requerido")
+
+})
 
 export default function RegisterPage() {
   const history = useHistory();
@@ -35,6 +44,9 @@ export default function RegisterPage() {
   const [estado] = useState(true);
   const [resgistrado, setResgistrado] = useState(null);
   const [squares7and8, setSquares7and8] = React.useState("");
+  const [habilitado, setHabilitado] = useState(false);
+
+
   React.useEffect(() => {
     
     document.body.classList.toggle("register-page");
@@ -45,6 +57,22 @@ export default function RegisterPage() {
       document.documentElement.removeEventListener("mousemove", followCursor);
     };
   },[]);
+
+
+  useEffect(()=>{
+    UserSchema.isValid({nombre_completo, email, password, provincia})
+    .then(
+      (valid) => {
+        if(valid){
+          setHabilitado(true)
+        }else{
+          setHabilitado(false)
+        }
+      }
+    )
+  },[nombre_completo, email, password, provincia, UserSchema])
+
+
   
   const followCursor = (event) => {
     let posX = event.clientX - window.innerWidth / 2;
@@ -197,9 +225,10 @@ setResgistrado(true)
                       </Form>
                     </CardBody>
                     <CardFooter>
-                      <Button className="btn-round" color="primary" size="lg"
-                      onClick={(e)=>{resgistroNuevoUsu(e.preventDefault())}}>
-                        Aceptar
+                    <Button className="btn-round" color="primary" size="lg"
+                      disabled={habilitado ? false : true}
+                      onClick={resgistroNuevoUsu}>
+                        {habilitado ? "Aceptar" : "Aceptar"}
                       </Button>
                       
                     </CardFooter>

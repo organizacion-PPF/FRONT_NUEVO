@@ -61,7 +61,7 @@ function Apprutas () {
        exact path="/profile-page" component={ProfilePage}
       />
       <Route
-       exact path="/lista-prof" component={ListaProfesores}
+       exact path="/lista-prof/:materia" component={ListaProfesores}
       />
       <Redirect from="/" to="/home-page" />
     </Switch>

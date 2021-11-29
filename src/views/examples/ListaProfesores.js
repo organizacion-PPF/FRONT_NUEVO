@@ -1,116 +1,102 @@
 import React from "react";
 // react plugin used to create charts
 import { Line } from "react-chartjs-2";
+import { useParams } from "react-router-dom";
 // reactstrap components
 import {
   Button,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  ListGroupItem,
-  ListGroup,
-  Container,
-  FormGroup,
-  Input,
   Row,
   Col,
-  UncontrolledCarousel,
+  
 } from "reactstrap";
 
-// core components
-
-import Footer from "components/Footer/Footer.js";
-//import RegisterPage from "views/examples/RegisterPage";
-
-import bigChartData from "variables/charts.js";
 import  { useEffect,useState } from 'react'
 
 
-
-
-/* export default function ListaProfesores() {
-
-
-  React.useEffect(() => {
-    document.body.classList.toggle("landing-page");
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      document.body.classList.toggle("landing-page");
-    };
-  },[]);
-
+const Home = () => {
+  const url = "https://proyec-back.herokuapp.com/profesor/get";
  
+  const {materia}=useParams()
 
-  return (
-    <>
-      
-      <div className="wrapper">
-        <div className="page-header">
-          
-         
-          <div className="content-center">
-            <Row className="row-grid justify-content-between align-items-center text-left">
-              <Col lg="10000" md="10000">
-                <h1 className="text-white">
-                  Lista de Materias<br />
-                  <span className="text-white"></span>
-                </h1>
-              </Col>
-             
-            </Row>
-          </div>
-        </div>
-        
-        
-        <Footer />
-      </div>
-    </>
-  );
-} */
+  const [stateProfesor, setStateProfesor] = useState([])
+  const fetchDataProfesionales = async () => {
+      try {
+          const peticion = await fetch(url)
+          const res = await peticion.json()
+          console.log(res)
+          setStateProfesor(res)
+      } catch (error) {console.log(error)}
+  }
 
-const Home = (props) => {
-        
-  const [listatadoCompleto, setListadoCompleto] = useState ([])
-
+  
   useEffect(() => {
-      //console.log(props + ' Home')
-      if(props.location.users){setListadoCompleto(props.location.users.profesores)}
-      else{setListadoCompleto([])}
+    
+      fetchDataProfesionales()
+   
+  },[])
+  
+  if ( !stateProfesor) {
+  
+    return(null)
+    
+  }
+  
 
-      
-  }, [props])
-
- 
 
   return (
       
   <div className="container-login100">
-     
-      <div className="container mt-2">
-      
-          <div className="row" id="data">
-              {
-                  listatadoCompleto.length > 0 ? listatadoCompleto.map(item => { 
-                      
-                      
-                      return(
-                          <div className="col-md-3 col-sm-6">
-                              <div className="card card-block mx-3 mb-5">
-                
-                              
-                              <h5 className="card-title mt-3 mb-3">{item.nombre_completo}</h5>
-                              
-                              </div>
-                          </div>
-                      )
-                  }): <h1 style={{margin:'auto', color:'white'}}><b>NO SE HAN CARGADO LOS DATOS</b></h1>
-                      
-              }      
-          </div>    
+     <Col lg="500" md="500">
+              <h5 className="text-on-back">PROFESORES</h5>
+                  <span className="text-white"></span>
+              
+              </Col>
+              <div class="container mt-2">
+        
+        <div class="row" id="data">
+        
+            {
+
+               stateProfesor.length > 0 ? stateProfesor.map(item => { 
+                    
+                   if (item.materia==materia) {
+                     
+                   
+                    return(
+
+      <div className="content-center">
+        <Row className="row-grid justify-content-between align-items-center text-left">
+         
+          <div class="card mx-5" style={{width: "18rem", textAlign:"center"}}>
+              <img  alt="..."
+              className="img-fluid animate_animated animate_pulse"
+              src={require("assets/img/etherum.png").default}></img>
+          <div class="card-body">
+
+             <h4 class="card-text">{item.userId.nombre_completo}</h4> 
+
+
+             <p>Nivel: <b>{item.nivel}</b></p> 
+            <p>Honorarios: <b>{item.honorarios}</b></p> 
+
+            <Button color="success" size="lg" >
+             contactar
+              </Button>
+                                
+          </div>
+          </div>
+        </Row>
       </div>
-  </div>  
+
+    
+                    )
+                  }
+                }): <h1 style={{margin:'auto', color:'white'}}><b>NO SE HAN CARGADO LOS DATOS</b></h1>
+                    
+            }      
+        </div>    
+    </div>
+</div>  
 
   )
 }
