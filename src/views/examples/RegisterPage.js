@@ -23,7 +23,7 @@ import {
 // core components
 import Footer from "components/Footer/Footer.js";
 import { defaults } from "chart.js";
-import FormNavbar from "components/layout/FormNavbar";
+import NavbarAtras from "components/layout/NavbarAtras";
 import * as yup from 'yup';
 let UserSchema = yup.object().shape({
 
@@ -127,7 +127,7 @@ setResgistrado(true)
   },[resgistrado])
   return (
     <>
-      <FormNavbar />
+      <NavbarAtras/>
       <div className="wrapper">
         <div className="page-header">
           <div className="page-header-image" />

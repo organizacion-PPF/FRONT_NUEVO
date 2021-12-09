@@ -1,7 +1,7 @@
 import React from "react";
 // react plugin used to create charts
-import { Line } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 // reactstrap components
 import {
   Button,
@@ -79,9 +79,13 @@ const Home = () => {
              <p>Nivel: <b>{item.nivel}</b></p> 
             <p>Honorarios: <b>{item.honorarios}</b></p> 
 
-            <Button color="success" size="lg" >
+            <Link  to={`/contactos/${item._id}`}>
+
+             <Button color="success" size="lg" >
              contactar
               </Button>
+              </Link>
+           
                                 
           </div>
           </div>

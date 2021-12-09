@@ -20,50 +20,57 @@ import {
 
 } from "reactstrap";
 
+
 // core components
-import ExamplesNavbar from "components/layout/ExamplesNavbar";
+
+import Navbarr from "components/layout/Navbar";
 import Footer from "components/Footer/Footer.js";
+
 //import RegisterPage from "views/examples/RegisterPage";
 
-import bigChartData from "variables/charts.js";
-import { Link } from "react-router-dom";
-
-const carouselItems = [
-  {
-    src: require("assets/img/denys.jpg").default,
-    altText: "Slide 1",
-    caption: "",
-  },
-  {
-    src: require("assets/img/fabien-bazanegue.jpg").default,
-    altText: "Slide 2",
-    caption: "",
-  },
-  {
-    src: require("assets/img/mark-finn.jpg").default,
-    altText: "Slide 3",
-    caption: "",
-  },
-];
 
 
 
-export default function LandingPage(props) {
+export default function LandingPage() {
   React.useEffect(() => {
     document.body.classList.toggle("landing-page");
     // Specify how to clean up after this effect:
     return function cleanup() {
       document.body.classList.toggle("landing-page");
     };
+    
   },[]);
 
+/*   const id=localStorage.getItem('LoginPage')
+  const url =`https://proyec-back.herokuapp.com/get-userID/${id}`;
+ 
+console.log(id)
+  const [stateProfesor, setStateProfesor] = useState([])
+  const fetchDataProfesionales = async () => {
+      try {
+          const peticion = await fetch(url)
+          const res = await peticion.json()
+          console.log(res)
+          setStateProfesor(res)
+      } catch (error) {console.log(error)}
+  }
 
+  
+  useEffect(() => {
+    
+      fetchDataProfesionales()
+   
+  },[])
 
-
+  if ( !stateProfesor) {
+  
+    return(null)
+    
+  } */
 
   return (
     <>
-      <ExamplesNavbar />
+     <Navbarr/>
       <div className="wrapper">
         <div className="page-header">
           <img
@@ -220,12 +227,9 @@ export default function LandingPage(props) {
                     </h1>
                  
                     <br />
-                    <Link  to="/materias-page">
 
-                      <Button color="success" size="lg" >
-                        BUSCA UN PROFESOR
-                      </Button>
-                      </Link>
+                  {/*  BOTON BUSCA PROFESOR */}
+                 
                   </div>
                 </Col>
               </Row>

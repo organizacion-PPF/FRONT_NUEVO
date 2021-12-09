@@ -1,7 +1,6 @@
 import React from "react";
 // react plugin used to create charts
 import 'assets/css/homePage.css'
-import { Link } from "react-router-dom";
 // reactstrap components
 import {
  
@@ -12,10 +11,8 @@ import {
 
 // core components
 
-import HomeNavbar from "components/layout/HomeNavbar";
-import Footer from "components/Footer/Footer.js";
+import Navbarr from "components/layout/Navbar";
 
-import bigChartData from "variables/charts.js";
 
 const carouselItems = [
   {
@@ -35,7 +32,7 @@ const carouselItems = [
   },
 ];
 
-export default function LandingPage() {
+export default function HomePage() {
   React.useEffect(() => {
     document.body.classList.toggle("landing-page");
     // Specify how to clean up after this effect:
@@ -45,20 +42,11 @@ export default function LandingPage() {
   },[]);
   return (
     <>
-      <HomeNavbar />
+      <Navbarr  />
     
       <div className="wrapper">
         <div className="page-header">
-          <img
-            alt="..."
-            className="path"
-            src={require("assets/img/blob.png").default}
-          />
-          <img
-            alt="..."
-            className="path2"
-            src={require("assets/img/path2.png").default}
-          />
+          
           <img
             alt="..."
             className="shapes triangle"
@@ -69,16 +57,8 @@ export default function LandingPage() {
             className="shapes wave"
             src={require("assets/img/waves.png").default}
           />
-          <img
-            alt="..."
-            className="shapes squares"
-            src={require("assets/img/patrat.png").default}
-          />
-          <img
-            alt="..."
-            className="shapes circle"
-            src={require("assets/img/cercuri.png").default}
-          />
+         
+          
           <div className="content-center">
             <Row className="row-grid justify-content-between align-items-center text-left">
             <Col lg="6" md="6">
@@ -92,11 +72,15 @@ export default function LandingPage() {
                   className="img-fluid"
                   src={require("assets/img/etherum.png").default}
                 /> 
+                
               </Col>
+              
             </Row>
+            
           </div>
+         
         </div>
-       
+      
         <section className="section section-lg">
          
        
@@ -156,31 +140,7 @@ export default function LandingPage() {
         </div>
         
         </section>
-        <Footer />
-
-        <div className="texto">
-        <div className="texto">
-        <h1 className="enseña">ENSEÑA</h1>
-        </div>
-        <div className="texto">
-        <h1 className="enseña">ENSEÑA</h1>
-        </div>
-
-        <div className="texto">
-        <h1 className="enseña">ENSEÑA</h1>
-        </div>
-        <div className="texto">
-        <h1 className="enseña">ENSEÑA</h1>
-        </div>
-        
-        </div>
-        <div className="texto2">
-        <div className="texto2"> <h1 className="aprende">APRENDE</h1></div>
-        <div className="texto2"> <h1 className="aprende">APRENDE</h1></div>
-        <div className="texto2"> <h1 className="aprende">APRENDE</h1></div>
-        <div className="texto2"> <h1 className="aprende">APRENDE</h1></div>
-        
-        </div>
+       
       </div>
     </>
   );

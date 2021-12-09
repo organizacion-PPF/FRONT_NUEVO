@@ -32,7 +32,7 @@ const carouselItems = [
   },
 ];
 
-export default function LandingPage(props) {
+export default function Materias() {
   React.useEffect(() => {
     document.body.classList.toggle("landing-page");
     // Specify how to clean up after this effect:

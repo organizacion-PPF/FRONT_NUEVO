@@ -1,21 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import  { useEffect,useState } from 'react'
 // reactstrap components
 import {
-  Button,
   Collapse,
   NavbarBrand,
   Navbar,
   NavItem,
-  NavLink,
   Nav,
   Container,
-  Row,
-  Col,
-  UncontrolledTooltip,
+
 } from "reactstrap";
 
-export default function HomeNavbar() {
+import { BotonRegis } from '../Guard/BotonRegis';
+import { BotonLogin } from '../Guard/BotonLogin';
+import { BotonCerrarSes } from '../Guard/BotonCerrarSes';
+import { BotonBusProf} from '../Guard/BotonBusProf';
+import { BotonRegisProf} from '../Guard/BotonRegisProf';
+
+
+export default function Navbarr() {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [collapseOut, setCollapseOut] = React.useState("");
   const [color, setColor] = React.useState("navbar-transparent");
@@ -48,27 +52,44 @@ export default function HomeNavbar() {
   const onCollapseExited = () => {
     setCollapseOut("");
   };
+
+  
+//comprobar si existe token  
+const [Login, setLogin] = useState(null);
+
+useEffect(() => {
+//guardar 
+//hacer consulta mediante getitem
+  const usuarioT = localStorage.getItem('LoginPage')
+  if (usuarioT){
+    const user = usuarioT
+    setLogin(user)
+  }
+}, [])
+
+
   return (
     <Navbar className={"fixed-top " + color} color-on-scroll="100" expand="lg">
       <Container>
-        <div className="navbar-translate">
-          <NavbarBrand to="/home-page" id="navbar-brand" tag={Link}>
+
+        {
+          Login
+          ?<div className="navbar-translate">
+          <NavbarBrand to="/landing-page" id="navbar-brand" tag={Link}>
             <span>INICIO </span>
           
           </NavbarBrand>
-          <UncontrolledTooltip placement="bottom" target="navbar-brand">
-            Designed and Coded by Creative Tim
-          </UncontrolledTooltip>
-          <button
-            aria-expanded={collapseOpen}
-            className="navbar-toggler navbar-toggler"
-            onClick={toggleCollapse}
-          >
-            <span className="navbar-toggler-bar bar1" />
-            <span className="navbar-toggler-bar bar2" />
-            <span className="navbar-toggler-bar bar3" />
-          </button>
+        
         </div>
+          :<div className="navbar-translate">
+          <NavbarBrand to="/home-page" id="navbar-brand" tag={Link}>
+            <span style={{display:"none"}} >INICIO </span>
+          
+          </NavbarBrand>
+        
+        </div>
+        }
+       
         <Collapse
           className={"justify-content-end " + collapseOut}
           navbar
@@ -76,26 +97,34 @@ export default function HomeNavbar() {
           onExiting={onCollapseExiting}
           onExited={onCollapseExited}
         >
-          <div className="navbar-collapse-header">
-            <Row>
-              <Col className="collapse-brand" xs="6">
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  BLK•React
-                </a>
-              </Col>
-              <Col className="collapse-close text-right" xs="6">
-                <button
-                  aria-expanded={collapseOpen}
-                  className="navbar-toggler"
-                  onClick={toggleCollapse}
-                >
-                  <i className="tim-icons icon-simple-remove" />
-                </button>
-              </Col>
-            </Row>
-          </div>
           <Nav navbar>
+  
+ 
+             
+            {/*  BOTON REGISTRO Y LOGIN */}
 
+          
+          
+          {
+                    Login
+                    ?<BotonBusProf/>
+                    :<BotonLogin/>
+                    
+                  }
+                  
+                  {
+                    Login
+                    ?<BotonRegisProf/>
+                    :null
+                    
+                  }
+              {
+                    Login
+                    ?<BotonCerrarSes/>
+                    :<BotonRegis/>
+                    
+                  }
+           
           </Nav>
         </Collapse>
       </Container>

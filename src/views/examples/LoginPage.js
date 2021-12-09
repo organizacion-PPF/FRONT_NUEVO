@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import classnames from "classnames";
 // reactstrap components
 import {
@@ -10,8 +11,6 @@ import {
   CardFooter,
   CardImg,
   CardTitle,
-  Label,
-  FormGroup,
   Form,
   Input,
   InputGroupAddon,
@@ -24,17 +23,13 @@ import {
 
 // core components
 import Footer from "components/Footer/Footer.js";
-import FromNavbar from "components/layout/FormNavbar";
-import setToken from "./RegisterProf"
+import NavbarAtras from "components/layout/NavbarAtras";
 import * as yup from 'yup';
 
 let schemaDatosLogin = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required().min(8,"Como minimo, 8 caracteres")
 })
-
-
-
 
 
 export default function LoginPage() {
@@ -89,6 +84,8 @@ export default function LoginPage() {
         "deg)"
     );
   };
+
+
   const LoginUsu = async () => {
     let myHeaders = new Headers();
 myHeaders.append("Content-Type","application/json");
@@ -110,6 +107,8 @@ const postData = await fetch("https://proyec-back.herokuapp.com/auth/login", opt
 const respu = await postData.json()
 console.log(respu)
 
+window.location.href='/landing-page'
+
 const {token}=respu
 console.log(token)
 setLogeado(true)
@@ -119,16 +118,49 @@ window.localStorage.setItem(
   'LoginPage', token
 )
 
+
+
   }
 
+
+  //aparecer el perfil del profe
+
+ /*  const url = "https://proyec-back.herokuapp.com/profesor/get";
+
+
+  const [stateProfesor, setStateProfesor] = useState([])
+  const fetchDataProfesionales = async () => {
+      try {
+          const peticion = await fetch(url)
+          const res = await peticion.json()
+          console.log(res)
+          setStateProfesor(res)
+      } catch (error) {console.log(error)}
+  }
+
+  
   useEffect(() => {
-    if(logeado){
-      history.push("/landing-page")
-    }
-  },[logeado])
+    
+      fetchDataProfesionales()
+   
+  },[])
+  
+  if ( !stateProfesor) {
+  
+    return(null)
+    
+  }
+   */
+  
+ 
+
   return (
     <>
-    <FromNavbar />
+
+    <NavbarAtras/>
+{/*     {
+
+stateProfesor.length > 0 ? stateProfesor.map(item => {  */}
       <div className="wrapper">
         <div className="page-header">
           <div className="page-header-image" />
@@ -193,11 +225,15 @@ window.localStorage.setItem(
                       </Form>
                     </CardBody>
                     <CardFooter>
+                    
+
                     <Button className="btn-round" color="primary" size="lg" 
                         disabled={habilitado ? false : true}
                         onClick={LoginUsu}>
                         {habilitado ? "Aceptar" : "Aceptar"}
                       </Button>
+                      
+                    
                     </CardFooter>
                   </Card>
                 </Col>
@@ -238,6 +274,8 @@ window.localStorage.setItem(
         </div>
         <Footer />
       </div>
+     {/*  }): <h1 style={{margin:'auto', color:'white'}}><b>NO SE HAN CARGADO LOS DATOS</b></h1>
+      } */}
     </>
   );
 }

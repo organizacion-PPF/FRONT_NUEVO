@@ -12,9 +12,6 @@ import {
   CardFooter,
   CardImg,
   CardTitle,
-  Label,
-  FormGroup,
-  CustomInput,
   Form,
   Input,
   InputGroupAddon,
@@ -23,11 +20,12 @@ import {
   Container,
   Row,
   Col,
+  select
 } from "reactstrap";
 
 // core components
 import Footer from "components/Footer/Footer.js";
-import FromNavbar from "components/layout/FormNavbar";
+
 
 import * as yup from "yup";
 
@@ -68,6 +66,8 @@ export default  function RegisterProf()  {
       document.documentElement.removeEventListener("mousemove", followCursor);
     };
   },[]);
+
+  
 
 
   useEffect(()=> {
@@ -113,7 +113,6 @@ export default  function RegisterProf()  {
 myHeaders.append("Content-Type","application/json");
 
 
-
 const raw = {
   descripcion,
   "nivel":[nivel],
@@ -147,9 +146,14 @@ setResgistrado(true)
       history.push("/profile-page")
     }
   },[resgistrado])
+
+
+
+
+
   return (
     <>
-      <FromNavbar />
+      
       <div className="wrapper">
         <div className="page-header">
           <div className="page-header-image" />
@@ -211,16 +215,16 @@ setResgistrado(true)
                         </InputGroup>
                         <InputGroup
                           className={classnames({
-                            "input-group-focus": materia,
+                            "input-group-focus": nivel,
                           })}
                         >
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                              <i className="tim-icons icon-book-bookmark" />
+                              <i className="tim-icons icon-shape-star" />
                             </InputGroupText>
                           </InputGroupAddon>
                           <Input
-                            placeholder="Materia a enseñar"
+                            placeholder="materia"
                             type="text"
                             onChange={(e)=>{setMateria(e.target.value)}}
                           />
