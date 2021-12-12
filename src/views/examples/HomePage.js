@@ -42,7 +42,7 @@ export default function HomePage() {
   },[]);
   return (
     <>
-      <Navbarr  />
+      <Navbarr/>
     
       <div className="wrapper">
         <div className="page-header">

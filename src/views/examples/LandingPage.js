@@ -24,7 +24,9 @@ import {
 // core components
 
 import Navbarr from "components/layout/Navbar";
+import NavbarPerfil from "components/layout/NavbarPerfil"
 import Footer from "components/Footer/Footer.js";
+
 
 //import RegisterPage from "views/examples/RegisterPage";
 
@@ -41,36 +43,54 @@ export default function LandingPage() {
     
   },[]);
 
-/*   const id=localStorage.getItem('LoginPage')
-  const url =`https://proyec-back.herokuapp.com/get-userID/${id}`;
- 
-console.log(id)
-  const [stateProfesor, setStateProfesor] = useState([])
-  const fetchDataProfesionales = async () => {
-      try {
-          const peticion = await fetch(url)
-          const res = await peticion.json()
-          console.log(res)
-          setStateProfesor(res)
-      } catch (error) {console.log(error)}
-  }
+  //datos para PERFIL DEL PROFE
 
-  
-  useEffect(() => {
-    
-      fetchDataProfesionales()
-   
-  },[])
+const [perfil, setPerfil] = useState(null);
+const [profesor, setProfesor] = useState(null);
 
-  if ( !stateProfesor) {
-  
-    return(null)
     
-  } */
+    useEffect(() => {
+      const JWT = async () =>{
+        const Datos = localStorage.getItem('LoginPage'); 
+      
+          //onsole.log()
+          const options = {
+        headers: {
+              'token': Datos,
+              'Content-type': 'application/json'
+        }
+      }
+      const postData = await fetch('http://localhost:4000/get-userID', options)
+      const res = await postData.json()
+      console.log(res)
+      console.log(res.profesor)
+      const profePerfil= await  res.profesor 
+      setProfesor(profePerfil)
+     
+         
+      }
+      JWT()
+    }, [])
+
+    useEffect(() => {
+      if (profesor!==null  ) {
+        if(profesor!==undefined){
+          profesor.length > 0 ? setPerfil(true):setPerfil(false)
+        }
+        
+      }
+      
+    }, [profesor])
 
   return (
     <>
-     <Navbarr/>
+    {
+                            perfil
+                            ?<NavbarPerfil />
+                            
+                            :<Navbarr/>
+                        }
+     
       <div className="wrapper">
         <div className="page-header">
           <img

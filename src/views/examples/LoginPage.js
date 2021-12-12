@@ -22,15 +22,24 @@ import {
 } from "reactstrap";
 
 // core components
+
 import Footer from "components/Footer/Footer.js";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import { css } from "@emotion/react";
 import NavbarAtras from "components/layout/NavbarAtras";
 import * as yup from 'yup';
-
 let schemaDatosLogin = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required().min(8,"Como minimo, 8 caracteres")
 })
 
+
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 export default function LoginPage() {
   const history = useHistory();
@@ -40,8 +49,13 @@ export default function LoginPage() {
   const [password, setPassword] = React.useState("");
   const [logeado, setLogeado] = useState(null);
   const [habilitado, setHabilitado] = useState(false);
+  const [cargando, setCargando] = useState(false);
 
-
+  useEffect(() => {
+    setCargando(true)
+    
+   
+  }, [])
   React.useEffect(() => {
     document.body.classList.toggle("register-page");
     document.documentElement.addEventListener("mousemove", followCursor);
@@ -53,6 +67,7 @@ export default function LoginPage() {
   },[]);
 
   useEffect(()=> {
+    
     schemaDatosLogin.isValid({email, password})
     .then(
       (valid) => {
@@ -63,6 +78,7 @@ export default function LoginPage() {
         }
       }
     )
+   
   },[email, password, schemaDatosLogin]);
 
 
@@ -85,7 +101,7 @@ export default function LoginPage() {
     );
   };
 
-
+  
   const LoginUsu = async () => {
     let myHeaders = new Headers();
 myHeaders.append("Content-Type","application/json");
@@ -107,12 +123,10 @@ const postData = await fetch("https://proyec-back.herokuapp.com/auth/login", opt
 const respu = await postData.json()
 console.log(respu)
 
-window.location.href='/landing-page'
 
 const {token}=respu
 console.log(token)
 setLogeado(true)
-
 
 window.localStorage.setItem(
   'LoginPage', token
@@ -120,47 +134,21 @@ window.localStorage.setItem(
 
 
 
-  }
-
-
-  //aparecer el perfil del profe
-
- /*  const url = "https://proyec-back.herokuapp.com/profesor/get";
-
-
-  const [stateProfesor, setStateProfesor] = useState([])
-  const fetchDataProfesionales = async () => {
-      try {
-          const peticion = await fetch(url)
-          const res = await peticion.json()
-          console.log(res)
-          setStateProfesor(res)
-      } catch (error) {console.log(error)}
-  }
-
-  
-  useEffect(() => {
-    
-      fetchDataProfesionales()
+  if(logeado){
    
-  },[])
+    window.location.href= `/landing-page`
   
-  if ( !stateProfesor) {
-  
-    return(null)
-    
   }
-   */
-  
- 
 
+
+  }
+
+ 
   return (
     <>
 
     <NavbarAtras/>
-{/*     {
 
-stateProfesor.length > 0 ? stateProfesor.map(item => {  */}
       <div className="wrapper">
         <div className="page-header">
           <div className="page-header-image" />
@@ -224,20 +212,30 @@ stateProfesor.length > 0 ? stateProfesor.map(item => {  */}
                         
                       </Form>
                     </CardBody>
+                    
                     <CardFooter>
-                    
 
-                    <Button className="btn-round" color="primary" size="lg" 
-                        disabled={habilitado ? false : true}
-                        onClick={LoginUsu}>
-                        {habilitado ? "Aceptar" : "Aceptar"}
-                      </Button>
-                      
-                    
+             <Button color="success" size="lg"
+             className="btn-round" color="primary" size="lg" 
+             disabled={habilitado ? false : true}
+            
+             onClick={LoginUsu}
+            
+             >
+                
+        
+   
+             
+             {habilitado ? "Aceptar" : "Aceptar"}
+              </Button>
+              
                     </CardFooter>
+                    
                   </Card>
                 </Col>
               </Row>
+              
+              
               <div className="register-bg" />
               <div
                 className="square square-1"
@@ -274,8 +272,8 @@ stateProfesor.length > 0 ? stateProfesor.map(item => {  */}
         </div>
         <Footer />
       </div>
-     {/*  }): <h1 style={{margin:'auto', color:'white'}}><b>NO SE HAN CARGADO LOS DATOS</b></h1>
-      } */}
+     
     </>
   );
+
 }

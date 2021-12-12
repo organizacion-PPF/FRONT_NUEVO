@@ -33,7 +33,6 @@ let profSchema = yup.object().shape({
   descripcion: yup.string().required(),
   nivel : yup.string().required(),
   materia: yup.string().required(),
-  horarios: yup.date().required(),
   honorarios: yup.number().required(),
 
 })
@@ -51,7 +50,7 @@ export default  function RegisterProf()  {
   const [descripcion, setDescripcion] = useState('');
   const [nivel, setNivel] = useState('');
   const [materia, setMateria] = useState('');
-  const [horarios, setHorarios] = useState('');
+  
   const [honorarios, setHonorarios] = useState('');
   const [resgistrado, setResgistrado] = useState(null);
   const [squares7and8, setSquares7and8] = React.useState("");
@@ -71,7 +70,7 @@ export default  function RegisterProf()  {
 
 
   useEffect(()=> {
-    profSchema.isValid({descripcion, nivel, materia, horarios, honorarios})
+    profSchema.isValid({descripcion, nivel, materia, honorarios})
     .then(
       (valid) => {
         if(valid){
@@ -81,7 +80,7 @@ export default  function RegisterProf()  {
         }
       }
     )
-  },[descripcion, nivel, materia, horarios, honorarios, profSchema]);
+  },[descripcion, nivel, materia, honorarios, profSchema]);
 
 
 
@@ -117,7 +116,7 @@ const raw = {
   descripcion,
   "nivel":[nivel],
   "materia":[materia],
-  "horarios":[horarios],
+  
   honorarios,
 
 }
@@ -229,22 +228,7 @@ setResgistrado(true)
                             onChange={(e)=>{setMateria(e.target.value)}}
                           />
                         </InputGroup>
-                        <InputGroup
-                          className={classnames({
-                            "input-group-focus": horarios,
-                          })}
-                        >  <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="tim-icons icon-calendar-60" />
-                        </InputGroupText>
-                      </InputGroupAddon> 
-                      <Input
-                        placeholder="Horarios de enseñanza"
-                        type="Date"
-                        onChange={(e)=>{setHorarios(e.target.value)}}
-                      />
-                      
-                        </InputGroup>
+                       
                         <InputGroup
                           className={classnames({
                             "input-group-focus": honorarios,

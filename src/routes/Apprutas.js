@@ -20,8 +20,6 @@ import ContactosProf  from 'views/examples/ContactosProf';
 
 export default function Apprutas () {
 
- 
-  
   return (
     <div>
        <BrowserRouter>
@@ -46,13 +44,13 @@ export default function Apprutas () {
        <RoutePrivada
        exact path="/registerProf" component={RegisterProf}
       />
-      <Route
+      <RoutePrivada
        exact path="/profile-page" component={ProfilePage}
       />
       <RoutePrivada
        exact path="/lista-prof/:materia" component={ListaProfesores}
       />
-      <Route
+      <RoutePrivada
        exact path="/contactos/:_id" component={ContactosProf}
       />
       <Redirect from="/" to="/home-page" />

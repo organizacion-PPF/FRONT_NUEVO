@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 import  { useEffect,useState } from 'react'
 // reactstrap components
@@ -10,18 +9,17 @@ import {
   NavItem,
   Nav,
   Container,
-  Button
+
 } from "reactstrap";
 
 import { BotonRegis } from '../Guard/BotonRegis';
 import { BotonLogin } from '../Guard/BotonLogin';
 import { BotonCerrarSes } from '../Guard/BotonCerrarSes';
 import { BotonBusProf} from '../Guard/BotonBusProf';
-import { BotonRegisProf} from '../Guard/BotonRegisProf';
 import { BotonPerfil} from '../Guard/BotonPerfil';
-import { isNullishCoalesce } from "typescript";
 
-export default function Navbarr() {
+
+export default function NavbarPerfil() {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [collapseOut, setCollapseOut] = React.useState("");
   const [color, setColor] = React.useState("navbar-transparent");
@@ -70,12 +68,7 @@ useEffect(() => {
 }, [])
 
 
- 
-
   return (
-    
-
-    
     <Navbar className={"fixed-top " + color} color-on-scroll="100" expand="lg">
       <Container>
 
@@ -96,9 +89,6 @@ useEffect(() => {
         
         </div>
         }
-     
-
-          
        
         <Collapse
           className={"justify-content-end " + collapseOut}
@@ -121,14 +111,13 @@ useEffect(() => {
                     :<BotonLogin/>
                     
                   }
-                   {
+                  
+                  {
                     Login
-                    ?<BotonRegisProf/>
+                    ?<BotonPerfil/>
                     :null
                     
                   }
-
-                   
               {
                     Login
                     ?<BotonCerrarSes/>

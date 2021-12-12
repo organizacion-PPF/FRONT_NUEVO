@@ -3,7 +3,7 @@ import React from "react";
 
 // react plugin used to create charts
 import { useParams } from "react-router-dom";
-
+import { Rating } from 'react-simple-star-rating';
 // reactstrap components
 import {
   Button,
@@ -23,12 +23,29 @@ import {
   UncontrolledTooltip,
  
 } from "reactstrap"
-
 import  { useEffect,useState } from 'react'
+import PacmanLoader from "react-spinners/PacmanLoader";
+import { css } from "@emotion/react";
+
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
+
 
 
 export default function  ContactosProf () {
+  const [cargando, setCargando] = useState(false);
+
+  useEffect(() => {
+    setCargando(true)
+    
+   
+  }, [])
   const [tabs, setTabs] = React.useState(1);
+
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
@@ -55,9 +72,12 @@ export default function  ContactosProf () {
 
     //Cacemos un setState para guardar el array que nos devuelve la api
 	const [stateProfesionales, setStateProfesionales] = useState(null)
-
-    //creamos una const de la url de nuestra api y le agregamos la id que traemos por parametros.
-	
+  const [rating, setRating] = useState(0)
+  
+    const handleRating = (rate: number) => {
+      setRating(rate)
+      
+    }
 
       //Creamos la función para consumir la api
   const fetchDataProfesionales = async () => {
@@ -149,11 +169,7 @@ export default function  ContactosProf () {
                                                   <td>{item.nivel}</td>
                                                   
                                                 </tr>
-                                                <tr>
-                                                  <td>HORARIOS</td>
-                                                  <td>{item.horarios}</td>
-                                                  
-                                                </tr>
+                                                
                                                 <tr>
                                                   <td>PRECIO DE LAS CLASES</td>
                                                   <td>{item.honorarios}</td>
@@ -172,6 +188,9 @@ export default function  ContactosProf () {
                                         
                                       </CardBody>
                                     </Card>
+                                    <div className='App'>
+    <Rating onClick={handleRating} ratingValue={rating} /* Available Props */ />
+   </div>
                                   </Col>
                                 </Row>
                               </Container>
@@ -247,7 +266,13 @@ export default function  ContactosProf () {
                         </>
                       );
                     }
-                  }): <h1 style={{margin:'auto', color:'white'}}><b>NO SE HAN CARGADO LOS DATOS</b></h1>
+                  }): <PacmanLoader
+
+                    color={'#CA36D7'} 
+                    loading={cargando}
+                    size={30}
+                    css={override}
+                     />
                       
               }      
           </div>    

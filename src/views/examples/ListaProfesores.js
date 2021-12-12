@@ -11,9 +11,24 @@ import {
 } from "reactstrap";
 
 import  { useEffect,useState } from 'react'
+import PacmanLoader from "react-spinners/PacmanLoader";
+import { css } from "@emotion/react";
 
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 const Home = () => {
+  const [cargando, setCargando] = useState(false);
+
+  useEffect(() => {
+    setCargando(true)
+    
+   
+  }, [])
   const url = "https://proyec-back.herokuapp.com/profesor/get";
  
   const {materia}=useParams()
@@ -95,7 +110,13 @@ const Home = () => {
     
                     )
                   }
-                }): <h1 style={{margin:'auto', color:'white'}}><b>NO SE HAN CARGADO LOS DATOS</b></h1>
+                }): <PacmanLoader
+
+                color={'#CA36D7'} 
+                loading={cargando}
+                size={30}
+                css={override}
+                 />
                     
             }      
         </div>    
